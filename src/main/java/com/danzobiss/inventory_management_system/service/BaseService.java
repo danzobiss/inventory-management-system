@@ -4,6 +4,9 @@ import com.danzobiss.inventory_management_system.entity.BaseEntity;
 import com.danzobiss.inventory_management_system.exception.ResourceNotFoundException;
 import com.danzobiss.inventory_management_system.repository.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -14,8 +17,9 @@ public abstract class BaseService<T extends BaseEntity, DTO> {
     @Autowired
     BaseRepository<T> repository;
 
-    public List<T> findAll() {
-        return repository.findAll();
+    public List<T> findAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return repository.findAll(pageable).getContent();
     }
 
     public T findById(Long id) {

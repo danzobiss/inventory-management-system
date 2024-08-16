@@ -39,7 +39,8 @@
   - Create, Read, Update and Delete products in database
   - Filters products based on the specified category
 * Category
-  - Create, Read, Update and Delete categorys in database
+  - Create, Read, Update and Delete categories in database
+* Pagination for GET requests that returns a list of objects
 * Validates sent request body
 * Uses the Template Method design pattern to organize the code
 * It uses the Adapter design pattern to adapt the entity according to the request body and vice versa
@@ -75,7 +76,7 @@ $ mvn spring-boot:run
 ### Products
 ```http
 // Gets all products and can be filtered by category
-GET /api/products?categoryId=
+GET /api/products?categoryId=1&page=0&size=10
 ```
 ```http
 // Gets product specified by id
@@ -97,7 +98,7 @@ DELETE /api/products/{id}
 ### Categories
 ```http
 // Gets all categories
-GET /api/categories
+GET /api/categories?page=0&size=10
 ```
 ```http
 // Gets category specified by id

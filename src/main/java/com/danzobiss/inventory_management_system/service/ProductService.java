@@ -4,6 +4,9 @@ import com.danzobiss.inventory_management_system.entity.Product;
 import com.danzobiss.inventory_management_system.repository.ProductRepository;
 import com.danzobiss.inventory_management_system.request.ProductRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +20,9 @@ public class ProductService extends BaseService<Product, ProductRequestDTO> {
     @Autowired
     CategoryService categoryService;
 
-    public List<Product> getProductsByCategoryId(Long categoryId) {
-        return productRepository.findByCategoryId(categoryId);
+    public List<Product> getProductsByCategoryId(Long categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findByCategoryId(categoryId, pageable);
     }
 
     @Override

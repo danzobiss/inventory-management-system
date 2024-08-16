@@ -14,7 +14,7 @@ import java.util.Map;
 public class CategoryController extends BaseController<Category, CategoryRequestDTO>{
 
     @Override
-    protected List<Category> getAllWithParams(Map<String, String> searchParams) {
+    protected List<Category> getAllWithParams(Map<String, String> searchParams, int page, int size) {
         throw new UnsupportedOperationException("Search parameters are not supported in CategoryController.");
     }
 

@@ -19,8 +19,8 @@ public class ProductController extends BaseController<Product, ProductRequestDTO
     private final ProductService productService = (ProductService) service;
 
     @Override
-    protected List<Product> getAllWithParams(Map<String, String> searchParams) {
-        return productService.getProductsByCategoryId(Long.valueOf(searchParams.get("categoryId")));
+    protected List<Product> getAllWithParams(Map<String, String> searchParams, int page, int size) {
+        return productService.getProductsByCategoryId(Long.valueOf(searchParams.get("categoryId")), page, size);
     }
 
     @Override

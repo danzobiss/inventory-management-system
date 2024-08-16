@@ -24,18 +24,21 @@ public abstract class BaseController<T extends BaseEntity, DTO> {
 
     @GetMapping
     public ResponseEntity<List<T>> getAll(@RequestParam(required = false) Map<String, String> searchParams) {
+        int page = Integer.parseInt(searchParams.getOrDefault("page", "0"));
+        int size = Integer.parseInt(searchParams.getOrDefault("size", "10"));
+
         List<T> entitiesList;
 
-        if (searchParams.isEmpty()) {
-            entitiesList = service.findAll();
+        if (searchParams.keySet().stream().noneMatch(key -> !"page".equals(key) && !"size".equals(key))) {
+            entitiesList = service.findAll(page, size);
         } else {
-            entitiesList = getAllWithParams(searchParams);
+            entitiesList = getAllWithParams(searchParams, page, size);
         }
 
         return status(OK).body(entitiesList);
     }
 
-    protected abstract List<T> getAllWithParams(Map<String, String> searchParams);
+    protected abstract List<T> getAllWithParams(Map<String, String> searchParams, int page, int size);
 
     @GetMapping("/{id}")
     public ResponseEntity<T> getById(@PathVariable Long id) {

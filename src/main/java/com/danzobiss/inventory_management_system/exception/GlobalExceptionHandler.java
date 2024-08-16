@@ -48,4 +48,13 @@ public class GlobalExceptionHandler {
         return status(BAD_REQUEST).body(responseBody);
     }
 
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<Map<String, Object>> handleResourceNotFoundException(UnsupportedOperationException ex) {
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("error", ex.getClass().getSimpleName());
+        responseBody.put("message", ex.getMessage());
+
+        return status(BAD_REQUEST).body(responseBody);
+    }
+
 }
